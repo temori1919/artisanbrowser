@@ -1,0 +1,263 @@
+/* init css */
+[class^=artisanbrowser] {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* root element  */
+@media (min-width:700px) {
+    div.artisanbrowser-root-box {
+        margin: 50px 50px 100px;
+    }
+}
+
+@media (max-width:700px) {
+    div.artisanbrowser-root-box {
+        margin: 50px 10px 100px;
+    }
+}
+
+div.artisanbrowser-root-box {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    z-index: 10000002;
+    background-color: #f5f5f5;
+    display: none;
+}
+
+/* overlay */
+div.artisanbrowser-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10000001;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .7);
+    display: none;
+}
+
+div.artisanbrowser-btn {
+    position: fixed;
+    display: block;
+    width: 45px;
+    height: 45px;
+    background: #e6e6e6;
+    text-align: center;
+    border-radius: 50%;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.12), 0 2px 2px 0 rgba(0,0,0,.24);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: move;
+    z-index: 10000002;
+}
+
+div.artisanbrowser-btn-inner {
+    height: 70%;
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+div.artisanbrowser-btn:hover {
+  box-shadow: 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12), 0 2px 4px -1px rgba(0,0,0,.2);
+}
+
+
+div.artisanbrowser-btn img {
+  color: white;
+  line-height: 56px;
+  vertical-align: middle;
+  font-size: 18px;
+  transition: .5s;
+}
+
+div.artisanbrowser-btn:hover img {
+  -webkit-transform: rotate(120deg);
+  transform: rotate(120deg);
+}
+
+/* display button  */
+div.artisanbrowser-left-top {
+    top: 0;
+    left: 0;
+}
+
+div.artisanbrowser-left-bottom {
+    bottom: 0;
+    left: 0;
+}
+
+div.artisanbrowser-right-top {
+    top: 0;
+    right: 0;
+}
+
+div.artisanbrowser-right-bottom {
+    bottom: 0;
+    right: 0;
+}
+div.artisanbrowser-show {
+    display: block !important;
+}
+
+/* nav menu */
+ul.artisanbrowser-nav {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+    background-color: #fdc1bf;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+li.artisanbrowser-nav-icon {
+    padding: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+li.artisanbrowser-nav-item {
+    float: left;
+    vertical-align: middle;
+}
+
+li.artisanbrowser-nav-item:last-child {
+	border-right: none;
+}
+
+li.artisanbrowser-nav-item a {
+    display: block;
+	text-align: center;
+	padding: 5px 10px;
+    text-decoration: none;
+    font-size: .85rem;
+}
+
+li.artisanbrowser-nav-item a:not(.artisanbrowser-nav-active) {
+    color: #333;
+}
+
+li.artisanbrowser-nav-item a:hover:not(.artisanbrowser-nav-active) {
+    background-color: #e69698;
+    -webkit-transition: 0.1s ease-in-out;
+    -moz-transition: 0.1s ease-in-out;
+    -o-transition: 0.1s ease-in-out;
+    transition: 0.1s ease-in-out;
+}
+
+a.artisanbrowser-nav-active {
+    background-color: #da3c41;
+    color: #fff;
+    -webkit-transition: 0.1s ease-in-out;
+    -moz-transition: 0.1s ease-in-out;
+    -o-transition: 0.1s ease-in-out;
+    transition: 0.1s ease-in-out;
+}
+
+div.artisanbrowser-window {
+    height: 100%;
+}
+
+/* output view */
+div.artisanbrowser-window-border {
+    height: 100%;
+    padding: 10px;
+    background-color: #000000;
+}
+
+/* route view */
+div.artisanbrowser-window-route {
+    height: 100%;
+    font-size: .7rem;
+    color: #f1f1f1;
+    font-family: monospace;
+    overflow: scroll;
+    display: none;
+}
+
+div.artisanbrowser-window-route table {
+    border-collapse: collapse;
+    border: 1px solid #fff;
+}
+
+div.artisanbrowser-window-route th {
+    border-collapse: collapse;
+    border: 1px solid #fff;
+    color: #00e842;
+}
+
+div.artisanbrowser-window-route td {
+    border-collapse: collapse;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+    padding: .2rem;
+}
+
+/* artisan view */
+div.artisanbrowser-window-artisan {
+    height: 100%;
+    font-size: .9rem;
+    color: #f1f1f1;
+    font-family: monospace;
+    overflow: scroll;
+    display: none;
+}
+
+.artisanbrowser-window-command-prefix {
+    margin-right: .3rem;
+}
+
+.artisanbrowser-window-command-suffix {
+    width: 95%;
+    border: 0;
+    outline: 0;
+    background-color: inherit;
+    color: #f1f1f1;
+}
+
+.artisanbrowser-window-command-done {
+    pointer-events: none;
+}
+
+#artisanbrowser-suggest strong {
+    color: #00e842;
+}
+
+#artisanbrowser-suggest div.select {
+    color: #FFFFFF;
+    background-color: #3366FF;
+}
+
+#artisanbrowser-suggest div.over {
+    background-color: #99CCFF;
+    color: #FFFFFF;
+}
+
+div.artisanbrowser-output-success {
+    color: #00e842;
+}
+
+div.artisanbrowser-output-error {
+    color: #fff;
+    background-color: #f73887;
+    display: inline-block;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* etc */
+.p-2 {
+    padding: 2rem;
+}
