@@ -6,7 +6,7 @@ It is a developer tool that displays a console with commonly used route display 
 
 **warning**: Use this package only in development. It is dangerous because the artist command can be executed from the browser.
 
-![https://img.shields.io/badge/license-MIT-green.svg](https://img.shields.io/badge/license-MIT-green.svg)![Packagist Version](https://img.shields.io/packagist/v/temori/artisan-browser.svg)![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/temori1919/artisanbrowser.svg)
+![https://img.shields.io/badge/license-MIT-green.svg](https://img.shields.io/badge/license-MIT-green.svg) ![Packagist Version](https://img.shields.io/packagist/v/temori/artisan-browser.svg) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/temori1919/artisanbrowser.svg)
 
 ![](https://user-images.githubusercontent.com/17793990/57972369-476f1280-79d4-11e9-9918-dfddb07a2d80.gif)
 
