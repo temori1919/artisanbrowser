@@ -38,7 +38,7 @@ class AjaxController extends Controller
 
                 // Get command.
                 if (empty($command)) {
-                    if ($ex_cmd === 'help') {
+                    if ($ex_cmd === 'help' && last($cmd) !== 'help') {
                         $option = ['-h' => true];
                     } else {
                         $command = $ex_cmd;

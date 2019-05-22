@@ -22,6 +22,9 @@ class Inject
         
         $response = $next($request);
 
+        // Don't process when redirect response.
+        if (get_class($response) != 'Illuminate\Http\Response') return $response;
+
         // If the Content-Type is not html, we will return the response as is.
         if (($response->headers->has('Content-Type') && strpos($response->headers->get('Content-Type'), 'html') === false)
          || empty($response->headers->has('Content-Type'))) {

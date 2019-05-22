@@ -1,3 +1,6 @@
+// Whether to open console.
+var artisanbrowserIsClick = true;
+
 // Load suggest.js
 var artisanbrowserSuggestStart = function() {
     $ArtisanBrowser.artisanbrowserCachedScript("//" + location.hostname + '/__artisanbrowser/assets/suggest')
@@ -7,11 +10,30 @@ var artisanbrowserSuggestStart = function() {
             "artisanbrowser-suggest",
             JSON.parse(artisanBrowserCmdList),
             {
-                dispMax: 0, 
-                highlight: true,    
+                dispMax: 0,
+                highlight: true,
                 dispAllKey: true
-            }   
+            }
         );
+    });
+}
+
+// Load draggabilly.js
+var artisanbrowserDrag = function() {
+    $ArtisanBrowser.artisanbrowserCachedScript("//" + location.hostname + "/__artisanbrowser/assets/draggabilly")
+    .done(function($) {
+        // Do not open console when dragging is complete.
+        var draggie = new Draggabilly( ".artisanbrowser-btn");
+        draggie.on("dragEnd", function(event, pointer) {
+            artisanbrowserIsClick = false;
+            // Set offset to localStorage.
+            localStorage.setItem("artisanbrowserOffserX", $ArtisanBrowser(event.target).offset().left)
+            localStorage.setItem("artisanbrowserOffserY", $ArtisanBrowser(event.target).offset().top)
+        });
+        // It is possible to open the console.
+        draggie.on( 'staticClick', function(event, pointer) {
+            artisanbrowserIsClick = true;
+        });
     });
 }
 
@@ -28,11 +50,11 @@ $ArtisanBrowser.artisanbrowserCachedScript = function(url, options) {
 $ArtisanBrowser(function() {
     // Determine whether click or mouse down event is in seconds.
     var artisanbrowserClickTime = 0;
-    var artisanbrowserIsClick = true;
-    $ArtisanBrowser(document).on("mousedown", function() {
+    // var artisanbrowserIsClick = true;
+    $ArtisanBrowser(document).on("mousedown", ".artisanbrowser-btn", function() {
         artisanbrowserClickTime = new Date().getTime();
     });
-    $ArtisanBrowser(document).on("mouseup", function() {
+    $ArtisanBrowser(document).on("mouseup", ".artisanbrowser-btn", function() {
         if (new Date().getTime() - artisanbrowserClickTime >= 200) {
 			artisanbrowserIsClick = false;
 		} else {
@@ -40,38 +62,11 @@ $ArtisanBrowser(function() {
         }
     });
 
-    // Start drag.
-    var artisanbrowserDragEnable = false;
-    var artisanbrowserOffserX = 0;
-    var artisanbrowserOffserY = 0;
-
-    $ArtisanBrowser(document).on("mouseup", ".artisanbrowser-btn", function(e) {
-        artisanbrowserDragEnable = false;
-        localStorage.setItem("artisanbrowserOffserX", $ArtisanBrowser(this).offset().left)
-        localStorage.setItem("artisanbrowserOffserY", $ArtisanBrowser(this).offset().top)
-    });
-
-    $ArtisanBrowser(document).on("mousedown", ".artisanbrowser-btn", function(e) {
-        if(e.which == 3) return false;
-        artisanbrowserOffserX = e.clientX - $ArtisanBrowser(this).position().left;
-        artisanbrowserOffserY = e.clientY - $ArtisanBrowser(this).position().top;
-        artisanbrowserDragEnable = true;
-    });
-
-    window.onmousemove = function(e) {
-        if(artisanbrowserDragEnable) {
-            $ArtisanBrowser(".artisanbrowser-btn").offset({
-                top: e.clientY - artisanbrowserOffserY,
-                left: e.clientX - artisanbrowserOffserX
-            });
-        }
-    }
-    
     // Render app btn.
     var artisanbrowserOffserXstorage = localStorage.getItem("artisanbrowserOffserX") ? localStorage.getItem("artisanbrowserOffserX") : 0;
     var artisanbrowserOffserYstorage = localStorage.getItem("artisanbrowserOffserY") ? localStorage.getItem("artisanbrowserOffserY") : 0;
     $ArtisanBrowser(".artisanbrowser-overlay").after(
-        "<div class=\"artisanbrowser-btn\" style=\"left:" + artisanbrowserOffserXstorage + "px; top:" + artisanbrowserOffserYstorage + "px;\"><div class=\"artisanbrowser-btn-inner\"><img src=\"//" + location.hostname + "/__artisanbrowser/assets/img\"></div></div>"
+        "<div id=\"artisanbrowser-btn\" class=\"artisanbrowser-btn\" style=\"left:" + artisanbrowserOffserXstorage + "px; top:" + artisanbrowserOffserYstorage + "px;\"><div class=\"artisanbrowser-btn-inner\"><img src=\"//" + location.hostname + "/__artisanbrowser/assets/img\"></div></div>"
     );
 
     $ArtisanBrowser(".artisanbrowser-btn .artisanbrowser-btn-inner img").attr("onmousedown", "return false");
@@ -106,9 +101,15 @@ $ArtisanBrowser(function() {
             }
         }
     });
+
     // Load suggest.js.
     if (typeof Suggest == "undefined") {
         artisanbrowserSuggestStart();
+    }
+
+    // Load draggabilly.js.
+    if (typeof Draggabilly == "undefined") {
+        artisanbrowserDrag();
     }
 
     // Run artisan command.
@@ -137,7 +138,7 @@ $ArtisanBrowser(function() {
                 .done(function(data) {
                     $ArtisanBrowser(".artisanbrowser-window-artisan").append(
                         "<div class=\"artisanbrowser-output-success\">" + 
-                        "<pre>" + data.message + "<pre>" + 
+                        "<pre class=\"artisanbrowser-output-pre\">" + data.message + "<pre>" +
                         "</div>"
                     );
 
@@ -147,13 +148,13 @@ $ArtisanBrowser(function() {
                     if (error.message == undefined) {
                         $ArtisanBrowser(".artisanbrowser-window-artisan").append(
                             "<br><div class=\"artisanbrowser-output-error\">" + 
-                            "<pre>" + error.responseJSON.message + "<pre>" + 
+                            "<pre class=\"artisanbrowser-output-pre\">" + error.responseJSON.message + "<pre>" +
                             "</div><br>"
                         );
                     } else {
                         $ArtisanBrowser(".artisanbrowser-window-artisan").append(
                             "<br><div class=\"artisanbrowser-output-error\">" + 
-                            "<pre>" + error.message + "<pre>" + 
+                            "<pre class=\"artisanbrowser-output-pre\">" + error.message + "<pre>" +
                             "</div><br>"
                         );
                     }

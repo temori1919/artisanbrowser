@@ -9,17 +9,13 @@ use Illuminate\Support\Facades\File;
 class AssetController extends Controller
 {
     /**
-     * Js response.
+     * Artisan browser js.
      *
      * @return Illuminate\Http\Response
      */
     public function js()
     {
-        return new Response(
-            ArtisanBrowser::getResource('artisanbrowser.js'), 200, [
-                'Content-Type' => 'text/javascript',
-            ]
-        );
+        return $this->responseJs('artisanbrowser.js');
     }
 
     /**
@@ -42,7 +38,7 @@ class AssetController extends Controller
      * @return Illuminate\Http\Response
      */
     public function img() {
-        $file = ArtisanBrowser::getFilePath('image/icon_laravel.png');
+        $file = ArtisanBrowser::getFilePath('image/logo.png');
         $mime_type = File::mimeType($file);
         $headers = [
             'Content-type' => $mime_type
@@ -58,11 +54,7 @@ class AssetController extends Controller
      */
     public function suggest()
     {
-        return new Response(
-            ArtisanBrowser::getResource('vendor/suggest.js'), 200, [
-                'Content-Type' => 'text/javascript',
-            ]
-        );
+        return $this->responseJs('vendor/suggest.js');
     }
 
     /**
@@ -72,8 +64,28 @@ class AssetController extends Controller
      */
     public function jquery()
     {
+        return $this->responseJs('vendor/jquery-1.12.4.min.js');
+    }
+
+    /**
+     * Draggabilly.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function draggabilly()
+    {
+        return $this->responseJs('vendor/draggabilly.pkgd.min.js');
+    }
+
+    /**
+     * Js response.
+     * @param string $file
+     * @return \Illuminate\Http\Response
+     */
+    protected function responseJs($file = '')
+    {
         return new Response(
-            ArtisanBrowser::getResource('vendor/jquery-1.12.4.min.js'), 200, [
+            ArtisanBrowser::getResource($file), 200, [
                 'Content-Type' => 'text/javascript',
             ]
         );

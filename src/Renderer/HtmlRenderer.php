@@ -54,6 +54,8 @@ class HtmlRenderer
         $response->setContent($content);
         $response->headers->remove('Content-Length');
 
-        return $response;
+        return $response->withHeaders([
+            'Cache-Control' => 'no-store',
+        ]);
     }
 }

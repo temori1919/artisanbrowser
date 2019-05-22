@@ -1,11 +1,22 @@
 /* init css */
-[class^=artisanbrowser] {
+[class^=artisanbrowser] *, :after, :before {
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 100%;
-    font: inherit;
+    font-weight: normal;
+    text-decoration: none;
+    clear: initial;
+    width: auto;
+    font-size: initial;
+    line-height: normal;
     vertical-align: baseline;
+    --webkit-box-sizing: content-box;
+    -moz-osx-box-sizing: content-box;
+    box-sizing: content-box;
+    -moz-osx-box-font-smoothing: subpixel-antialiased;
+    -webkit-font-smoothing: subpixel-antialiased;
+    font-family: initial;
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
 }
 
 /* root element  */
@@ -49,15 +60,15 @@ div.artisanbrowser-btn {
     display: block;
     width: 45px;
     height: 45px;
-    background: #e6e6e6;
+    background: #ffe1da;
+    z-index: 10000000;
     text-align: center;
-    border-radius: 50%;
+    border-radius: 15%;
     box-shadow: 0 2px 2px 0 rgba(0,0,0,.12), 0 2px 2px 0 rgba(0,0,0,.24);
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: move;
-    z-index: 10000002;
 }
 
 div.artisanbrowser-btn-inner {
@@ -66,7 +77,6 @@ div.artisanbrowser-btn-inner {
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
 }
 
 div.artisanbrowser-btn:hover {
@@ -75,16 +85,12 @@ div.artisanbrowser-btn:hover {
 
 
 div.artisanbrowser-btn img {
-  color: white;
-  line-height: 56px;
-  vertical-align: middle;
-  font-size: 18px;
-  transition: .5s;
-}
-
-div.artisanbrowser-btn:hover img {
-  -webkit-transform: rotate(120deg);
-  transform: rotate(120deg);
+    color: white;
+    line-height: 56px;
+    vertical-align: middle;
+    font-size: 18px;
+    transition: .5s;
+    cursor: pointer;
 }
 
 /* display button  */
@@ -116,40 +122,49 @@ ul.artisanbrowser-nav {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
+    height: 2rem;
 	overflow: hidden;
     background-color: #fdc1bf;
     font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
 }
 
 li.artisanbrowser-nav-icon {
-    padding: 3px;
+    padding-right: 2px;
+    padding-left: 2px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+li.artisanbrowser-nav-icon > img {
+    max-width: 100%;
+    height: auto;
+}
+
 li.artisanbrowser-nav-item {
     float: left;
-    vertical-align: middle;
+    height: 100%;
 }
 
 li.artisanbrowser-nav-item:last-child {
 	border-right: none;
 }
 
-li.artisanbrowser-nav-item a {
-    display: block;
-	text-align: center;
-	padding: 5px 10px;
+li.artisanbrowser-nav-item a.artisanbrowser-nav-link {
+	padding: 0 10px;
     text-decoration: none;
     font-size: .85rem;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-li.artisanbrowser-nav-item a:not(.artisanbrowser-nav-active) {
+li.artisanbrowser-nav-item a.artisanbrowser-nav-link:not(.artisanbrowser-nav-active) {
     color: #333;
 }
 
-li.artisanbrowser-nav-item a:hover:not(.artisanbrowser-nav-active) {
+li.artisanbrowser-nav-item a.artisanbrowser-nav-link:hover:not(.artisanbrowser-nav-active) {
     background-color: #e69698;
     -webkit-transition: 0.1s ease-in-out;
     -moz-transition: 0.1s ease-in-out;
@@ -180,43 +195,52 @@ div.artisanbrowser-window-border {
 /* route view */
 div.artisanbrowser-window-route {
     height: 100%;
-    font-size: .7rem;
     color: #f1f1f1;
     font-family: monospace;
     overflow: scroll;
     display: none;
 }
 
-div.artisanbrowser-window-route table {
-    border-collapse: collapse;
+table.artisanbrowser-window-route-table, th.artisanbrowser-window-route-th, td.artisanbrowser-window-route-td {
+    font-size: .8rem;
+    border-collapse: collapse !important;
+}
+
+table.artisanbrowser-window-route-table {
     border: 1px solid #fff;
 }
 
-div.artisanbrowser-window-route th {
-    border-collapse: collapse;
+th.artisanbrowser-window-route-th {
     border: 1px solid #fff;
     color: #00e842;
+    text-align: center;
 }
 
-div.artisanbrowser-window-route td {
-    border-collapse: collapse;
+td.artisanbrowser-window-route-td {
     border-left: 1px solid #fff;
     border-right: 1px solid #fff;
     padding: .2rem;
+    white-space: nowrap;
 }
 
 /* artisan view */
 div.artisanbrowser-window-artisan {
     height: 100%;
-    font-size: .9rem;
     color: #f1f1f1;
-    font-family: monospace;
     overflow: scroll;
     display: none;
 }
 
+.artisanbrowser-window-command-prefix, .artisanbrowser-window-command-suffix, #artisanbrowser-suggest div {
+    font-size: .85rem;
+}
+
+#artisanbrowser-suggest strong, #artisanbrowser-suggest div.select, #artisanbrowser-suggest div.over {
+    font-size: .9rem;
+}
+
 .artisanbrowser-window-command-prefix {
-    margin-right: .3rem;
+    margin-right: .25rem;
 }
 
 .artisanbrowser-window-command-suffix {
@@ -245,16 +269,27 @@ div.artisanbrowser-window-artisan {
     color: #FFFFFF;
 }
 
-div.artisanbrowser-output-success {
+pre.artisanbrowser-output-pre {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+}
+
+div.artisanbrowser-output-success, .artisanbrowser-output-success > pre.artisanbrowser-output-pre {
     color: #00e842;
 }
 
-div.artisanbrowser-output-error {
+div.artisanbrowser-output-error, .artisanbrowser-output-error > pre.artisanbrowser-output-pre {
     color: #fff;
     background-color: #f73887;
     display: inline-block;
     padding: 1rem;
     margin-bottom: 1rem;
+}
+
+pre.artisanbrowser-output-pre, pre.artisanbrowser-output-pre > * {
+    font-size: .8rem !important;
 }
 
 /* etc */

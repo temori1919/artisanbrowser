@@ -32,6 +32,7 @@ class ArtisanBrowserServiceProvider extends ServiceProvider
         app('router')->group($attributes, function($router) {
             $router->get('assets/js', 'AssetController@js')->name('artisanbrowser.assets.js');
             $router->get('assets/jquery', 'AssetController@jquery')->name('artisanbrowser.assets.jquery');
+            $router->get('assets/draggabilly', 'AssetController@draggabilly')->name('artisanbrowser.assets.draggabilly');
             $router->get('assets/suggest', 'AssetController@suggest')->name('artisanbrowser.assets.suggest');
             $router->get('assets/css', 'AssetController@css')->name('artisanbrowser.assets.css');
             $router->get('assets/img', 'AssetController@img')->name('artisanbrowser.assets.img');
