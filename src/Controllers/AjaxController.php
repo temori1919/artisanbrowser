@@ -24,9 +24,9 @@ class AjaxController extends Controller
             if (config('artisanbrowser.artisanbrowser_cache') > 0) {
                 ArtisanBrowser::Logging($request->cmd);
             }
-            
+
             $cmd = multiexplode([' ', '　'], $request->cmd);
-            
+
             $command = '';
             $option = [];
             foreach ($cmd as $c) {
@@ -34,6 +34,12 @@ class AjaxController extends Controller
                 $ex_cmd = mb_strtolower(trim($c));
                 if ($ex_cmd === 'php' || $ex_cmd === 'artisan') {
                     continue;
+                }
+
+                if (strpos($ex_cmd, 'tinker') !== false) {
+                    return response()->json([
+                        'message' => 'This package can not use tinker command.',
+                    ], 500);
                 }
 
                 // Get command.
